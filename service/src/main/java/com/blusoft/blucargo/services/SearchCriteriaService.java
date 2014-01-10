@@ -1,17 +1,21 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.SearchCriteriaDao;
-import com.blucargo.model.SearchCriteria;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.SearchCriteriaDao;
+import com.blusoft.blucargo.model.SearchCriteria;
+
+@Service
+@Transactional
 public class SearchCriteriaService {
 
 	private final SearchCriteriaDao searchCriteriaDao;
 
-	@Inject
+	@Autowired
 	public SearchCriteriaService(SearchCriteriaDao searchCriteriaDao) {
 		this.searchCriteriaDao = searchCriteriaDao;
 	}

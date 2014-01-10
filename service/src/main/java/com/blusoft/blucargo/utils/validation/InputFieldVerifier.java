@@ -1,4 +1,4 @@
-package com.blucargo.utils.validation;
+package com.blusoft.blucargo.utils.validation;
 
 import java.awt.Color;
 import java.util.ArrayList;

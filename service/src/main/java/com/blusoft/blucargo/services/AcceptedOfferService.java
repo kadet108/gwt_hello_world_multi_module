@@ -1,20 +1,22 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.AcceptedOfferDao;
-import com.blucargo.model.AcceptedOffer;
-import com.blucargo.model.CargoOffer;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.AcceptedOfferDao;
+import com.blusoft.blucargo.model.AcceptedOffer;
+import com.blusoft.blucargo.model.CargoOffer;
+
+@Transactional
 public class AcceptedOfferService {
 
 	private final AcceptedOfferDao acceptedOfferDao;
 
-	@Inject
-	public AcceptedOfferService(AcceptedOfferDao acceptedOfferDao) {
-		this.acceptedOfferDao = acceptedOfferDao;
+	@Autowired
+	public AcceptedOfferService(AcceptedOfferDao acceptedOfferDaoParam) {
+		acceptedOfferDao = acceptedOfferDaoParam;
 	}
 
 	public synchronized void saveAcceptedOffers(List<AcceptedOffer> acceptedOffers) {

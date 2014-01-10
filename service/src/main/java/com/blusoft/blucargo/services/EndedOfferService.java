@@ -1,18 +1,22 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.EndedOfferDao;
-import com.blucargo.model.CargoOffer;
-import com.blucargo.model.EndedOffer;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.EndedOfferDao;
+import com.blusoft.blucargo.model.CargoOffer;
+import com.blusoft.blucargo.model.EndedOffer;
+
+@Service
+@Transactional
 public class EndedOfferService {
 
 	private final EndedOfferDao endedOfferDao;
 
-	@Inject
+	@Autowired
 	public EndedOfferService(EndedOfferDao endedOfferDao) {
 		this.endedOfferDao = endedOfferDao;
 	}
@@ -32,8 +36,7 @@ public class EndedOfferService {
 	}
 
 	public synchronized void removeEndedOffer(EndedOffer ao) {
-		ao.setVisible(0);
-		endedOfferDao.saveOrUpdate(ao);
+		endedOfferDao.removeEndedOffer(ao);
 	}
 
 	public synchronized void removeEndedOfferByCargoOfferAndOwner(CargoOffer co, String owner) {

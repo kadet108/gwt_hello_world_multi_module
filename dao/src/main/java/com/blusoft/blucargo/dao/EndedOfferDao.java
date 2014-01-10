@@ -7,8 +7,14 @@ import com.blusoft.blucargo.model.EndedOffer;
 
 public interface EndedOfferDao extends BaseDao<EndedOffer> {
 
-	public abstract List<CargoOffer> getEndedCargoOffersByOwner(String owner);
+	List<CargoOffer> getEndedCargoOffersByOwner(String owner);
 
-	public abstract List<EndedOffer> findEndedOfferByOwner(String owner);
+	List<EndedOffer> findEndedOfferByOwner(String owner);
+
+	EndedOffer findByOfferIdAndUserName(long offerId, String userName);
+
+	void removeEndedOfferByCargoOfferAndOwner(CargoOffer co, String owner);
+
+	void removeEndedOffer(EndedOffer ao);
 
 }

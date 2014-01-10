@@ -1,18 +1,22 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.CommentDao;
-import com.blucargo.model.Comment;
-import com.blucargo.model.CommentAndOffer;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.CommentDao;
+import com.blusoft.blucargo.model.Comment;
+import com.blusoft.blucargo.model.CommentAndOffer;
+
+@Service
+@Transactional
 public class CommentService {
 
 	private final CommentDao commentDao;
 
-	@Inject
+	@Autowired
 	public CommentService(CommentDao commentDao) {
 		this.commentDao = commentDao;
 	}

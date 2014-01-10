@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import com.blusoft.blucargo.dao.BaseDao;
 
@@ -16,9 +15,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	@Autowired
 	protected SessionFactory sessionFactory;
-
-	@Autowired
-	protected LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
 	protected BaseDaoImpl(Class<T> persistentClass) {
 

@@ -1,23 +1,27 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.AcceptedOfferDao;
-import com.blucargo.dao.CargoOfferDao;
-import com.blucargo.dao.OfferAcceptanceDao;
-import com.blucargo.model.AcceptedOffer;
-import com.blucargo.model.CargoOffer;
-import com.blucargo.model.OfferAcceptance;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.AcceptedOfferDao;
+import com.blusoft.blucargo.dao.CargoOfferDao;
+import com.blusoft.blucargo.dao.OfferAcceptanceDao;
+import com.blusoft.blucargo.model.AcceptedOffer;
+import com.blusoft.blucargo.model.CargoOffer;
+import com.blusoft.blucargo.model.OfferAcceptance;
+
+@Service
+@Transactional
 public class OfferAcceptanceService {
 
 	private final OfferAcceptanceDao offerAcceptanceDao;
 	private final CargoOfferDao cargoOfferDao;
 	private final AcceptedOfferDao acceptedOfferDao;
 
-	@Inject
+	@Autowired
 	public OfferAcceptanceService(OfferAcceptanceDao offerAcceptanceDao, CargoOfferDao cargoOfferDao, AcceptedOfferDao acceptedOfferDao) {
 		this.offerAcceptanceDao = offerAcceptanceDao;
 		this.cargoOfferDao = cargoOfferDao;
@@ -87,9 +91,5 @@ public class OfferAcceptanceService {
 		}
 
 	}
-
-	// public void initiateOffer(OfferAcceptance oa) {
-	// offerAcceptanceDao.save(oa);
-	// }
 
 }

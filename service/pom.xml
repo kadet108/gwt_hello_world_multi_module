@@ -9,11 +9,15 @@
 	<url>http://maven.apache.org</url>
 
 	<parent>
-		<groupId>org.codehaus.mojo.gwt.it</groupId>
-		<artifactId>reactor</artifactId>
+		<groupId>com.blusoft</groupId>
+		<artifactId>blucargo</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
+	<properties>
+	    <hsqldb.version>2.2.8</hsqldb.version>
+	</properties>
+	
 	<build>
 		<plugins>
 
@@ -102,8 +106,40 @@
 				<filtering>false</filtering>
 			</resource>
 		</resources>
+		
 	</build>
 
+	<dependencies>
+	    
+	    <dependency>
+	        <groupId>com.blusoft.blucargo</groupId>
+			<artifactId>dao</artifactId>	        
+			<version>${project.version}</version>
+	    </dependency>
+	    
+	    <!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+			    
+	</dependencies>
 
 </project>
 

@@ -1,19 +1,23 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.CarBodyDao;
-import com.blucargo.model.CarBody;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.impl.CarBodyDao;
+import com.blusoft.blucargo.model.CarBody;
+
+@Transactional
+@Service
 public class CarBodyService {
 
 	private final CarBodyDao bodyDao;
 
-	@Inject
-	public CarBodyService(CarBodyDao bodyDao) {
-		this.bodyDao = bodyDao;
+	@Autowired
+	public CarBodyService(CarBodyDao dao) {
+		bodyDao = dao;
 	}
 
 	public synchronized void saveBodies(List<CarBody> bodies) {

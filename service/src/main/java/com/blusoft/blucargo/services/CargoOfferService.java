@@ -1,26 +1,33 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.CargoOfferDao;
-import com.blucargo.interfaces.ICargoOfferDao;
-import com.blucargo.model.CargoOffer;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.CargoOfferDao;
+import com.blusoft.blucargo.model.CargoOffer;
+
+@Transactional
+@Service
 public class CargoOfferService {
 
 	private final CargoOfferDao cargoOfferDao;
 
-	@Inject
-	public CargoOfferService(CargoOfferDao cargoOfferDao) {
-		this.cargoOfferDao = cargoOfferDao;
+	@Autowired
+	public CargoOfferService(CargoOfferDao dao) {
+		cargoOfferDao = dao;
 	}
 
 	public synchronized void save(List<CargoOffer> offerList) {
 		for (CargoOffer co : offerList) {
 			cargoOfferDao.saveOrUpdate(co);
 		}
+	}
+
+	public CargoOfferDao getCargoOfferDao() {
+		return cargoOfferDao;
 	}
 
 	public synchronized void save(CargoOffer co) {
@@ -54,7 +61,4 @@ public class CargoOfferService {
 		return cargoOfferDao.findOfferById(id);
 	}
 
-	public ICargoOfferDao getCargoOfferDao() {
-		return this.cargoOfferDao;
-	}
 }

@@ -1,17 +1,21 @@
-package com.blucargo.services;
+package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import com.blucargo.dao.CountryDao;
-import com.blucargo.model.Country;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@com.google.inject.persist.Transactional
+import com.blusoft.blucargo.dao.CountryDao;
+import com.blusoft.blucargo.model.Country;
+
+@Service
+@Transactional
 public class CountryService {
 
 	private final CountryDao countryDao;
 
-	@Inject
+	@Autowired
 	public CountryService(CountryDao countryDao) {
 		this.countryDao = countryDao;
 	}

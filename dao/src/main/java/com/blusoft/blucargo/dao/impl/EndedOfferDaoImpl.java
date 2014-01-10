@@ -21,7 +21,7 @@ public class EndedOfferDaoImpl extends BaseDaoImpl<EndedOffer> implements EndedO
 		Query q = getSession().createQuery("UPDATE EndedOffer o set o.visible=:visible where o.offerId=:cargoOfferId" + " and o.userName=:owner");
 		q.setParameter("cargoOfferId", co.getId());
 		q.setParameter("owner", owner);
-		q.setParameter("visible", false);
+		q.setParameter("visible", 0);
 		q.executeUpdate();
 	}
 
@@ -54,6 +54,12 @@ public class EndedOfferDaoImpl extends BaseDaoImpl<EndedOffer> implements EndedO
 		}
 
 		return null;
+	}
+
+	@Override
+	public void removeEndedOffer(EndedOffer ao) {
+		ao.setVisible(0);
+		saveOrUpdate(ao);
 	}
 
 }

@@ -7,17 +7,11 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.blusoft.blucargo.model.AcceptedOffer;
 import com.blusoft.blucargo.model.CargoOffer;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/test/resources/META-INF/spring/blucargo-dao-test-context.xml" })
 public class AcceptedOfferDaoDbTest extends AbstractDAOTest {
 
 	@Autowired
@@ -50,7 +44,6 @@ public class AcceptedOfferDaoDbTest extends AbstractDAOTest {
 	}
 
 	@Test
-	@Transactional
 	public void testRemoveAcceptedCargoOffersByOwner() {
 
 		acceptedOfferDao.removeAcceptedOfferByCargoOfferAndOwner(co, "b");
@@ -60,13 +53,28 @@ public class AcceptedOfferDaoDbTest extends AbstractDAOTest {
 	}
 
 	@Test
-	@Transactional
 	public void testRemoveAcceptedCargoOffersByOwner2() {
 
 		acceptedOfferDao.removeAcceptedOfferByCargoOfferAndOwner(co, "b");
 		List<AcceptedOffer> acceptedOffers = acceptedOfferDao.findAll();
 		assertTrue(acceptedOffers.size() == 0);
 
+	}
+
+	@Test
+	public void testGetAcceptedOfferByCargoOfferAndUserName() {
+		CargoOffer co = new CargoOffer();
+		co.setOwner("a");
+		cargoOfferDao.saveOrUpdate(co);
+
+		AcceptedOffer ao = new AcceptedOffer();
+		ao.setOfferId(co.getId());
+		ao.setUserName("b");
+		acceptedOfferDao.saveOrUpdate(ao);
+
+		AcceptedOffer acceptedOfferBack = acceptedOfferDao.getAcceptedOfferByCargoOfferIdAndUserName(co.getId(), "b");
+		assertEquals(acceptedOfferBack.getUserName(), "b");
+		assertEquals(acceptedOfferBack.getOfferId(), co.getId());
 	}
 
 }

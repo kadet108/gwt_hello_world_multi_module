@@ -4,6 +4,10 @@ import com.blusoft.blucargo.model.RegistrationData;
 
 public interface RegistrationDataDao extends BaseDao<RegistrationData> {
 
-	public abstract RegistrationData getUserByRegistrationNumber(String number);
+	abstract RegistrationData getUserByRegistrationNumber(String number);
+
+	boolean checkLoginInTable(String login);
+
+	void deleteAllByRegId(String string);
 
 }

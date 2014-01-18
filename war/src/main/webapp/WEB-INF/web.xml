@@ -5,15 +5,15 @@
 
 <web-app>
 
-  <!--  servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.blusoft.server.GreetingServiceImpl</servlet-class>
+  <servlet>
+    <servlet-name>testService</servlet-name>
+    <servlet-class>com.blusoft.blucargo.gwt.server.TestServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/blucargo/greet</url-pattern>
-  </servlet-mapping-->
+    <servlet-name>testService</servlet-name>
+    <url-pattern>/hello/testService</url-pattern>
+  </servlet-mapping>
 
   <!-- Default page to serve -->
   <welcome-file-list>

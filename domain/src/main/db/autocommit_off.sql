@@ -1,1 +1,0 @@
-SET autocommit=0;

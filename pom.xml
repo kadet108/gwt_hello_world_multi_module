@@ -1,27 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.blusoft</groupId>
+	<groupId>com.blusoft.blucargo</groupId>
 	<artifactId>blucargo</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-	    
-	    <commons.dbcp>1.4</commons.dbcp>
+
+		<ehcache.version>2.6.3</ehcache.version>
 		<gwt.maven.plugin.version>2.6.0-rc1</gwt.maven.plugin.version>
 		<gwt.version>2.6.0-rc1</gwt.version>
 		<hibernate.version>4.1.7.Final</hibernate.version>
+		<hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
+		<hsqldb.version>2.2.8</hsqldb.version>
+		<mysql.version>5.1.28</mysql.version>
 		<junit.version>4.6</junit.version>
-		<ehcache.version>2.6.3</ehcache.version>
-		<org.springframework.version>3.2.6.RELEASE</org.springframework.version>
 		<log4j.version>1.2.17</log4j.version>
 		<mockito.version>1.9.5</mockito.version>
-		<hsqldb.version>2.2.8</hsqldb.version>
-		
+		<org.springframework.version>3.2.6.RELEASE</org.springframework.version>
+	    <commons.dbcp>1.4</commons.dbcp>
+
 		<!-- Maven plugins -->
 		<maven.exec.plugin.version>1.1.1</maven.exec.plugin.version>
-		
+
 	</properties>
 
 	<repositories>
@@ -30,7 +32,7 @@
 			<url>http://download.java.net/maven/2/</url>
 		</repository>
 	</repositories>
-	
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -73,7 +75,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<dependencies>
 	    <dependency>
 			<groupId>junit</groupId>
@@ -98,16 +100,15 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-	    
-	    
+
+
 	</dependencies>
 
 	<modules>
 		<module>model</module>
 		<module>dao</module>
 		<module>service</module>
-		<module>domain</module>
-		<module>jar</module>
 		<module>war</module>
 	</modules>
+
 </project>

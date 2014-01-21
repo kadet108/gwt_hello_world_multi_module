@@ -2,43 +2,18 @@ package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.blusoft.blucargo.dao.RegistrationDataDao;
 import com.blusoft.blucargo.model.RegistrationData;
 
-@Service
-@Transactional
-public class RegistrationDataService {
+public interface RegistrationDataService {
 
-	private final RegistrationDataDao registrationDataDao;
+	public void save(List<RegistrationData> regData);
 
-	@Autowired
-	public RegistrationDataService(RegistrationDataDao registrationDataDao) {
-		this.registrationDataDao = registrationDataDao;
-	}
+	public void save(RegistrationData regData);
 
-	public synchronized void save(List<RegistrationData> regData) {
-		for (RegistrationData rd : regData) {
-			registrationDataDao.saveOrUpdate(rd);
-		}
-	}
+	public RegistrationData getUserByRegistrationNumber(String number);
 
-	public synchronized void save(RegistrationData regData) {
-		this.registrationDataDao.saveOrUpdate(regData);
-	}
+	public boolean checkLoginInTable(String login);
 
-	public RegistrationData getUserByRegistrationNumber(String number) {
-		return registrationDataDao.getUserByRegistrationNumber(number);
-	}
+	public void deleteAllByRegId(String string);
 
-	public boolean checkLoginInTable(String login) {
-		return registrationDataDao.checkLoginInTable(login);
-	}
-
-	public void deleteAllByRegId(String string) {
-		registrationDataDao.deleteAllByRegId(string);
-	}
 }

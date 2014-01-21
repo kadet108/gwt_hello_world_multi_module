@@ -2,71 +2,29 @@ package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.blusoft.blucargo.dao.EndedOfferDao;
 import com.blusoft.blucargo.model.CargoOffer;
 import com.blusoft.blucargo.model.EndedOffer;
 
-@Service
-@Transactional
-public class EndedOfferService {
+public interface EndedOfferService {
 
-	private final EndedOfferDao endedOfferDao;
+	public void saveEndedOffers(List<EndedOffer> endedOffers);
 
-	@Autowired
-	public EndedOfferService(EndedOfferDao endedOfferDao) {
-		this.endedOfferDao = endedOfferDao;
-	}
+	public void save(EndedOffer ao);
 
-	public synchronized void saveEndedOffers(List<EndedOffer> endedOffers) {
-		for (EndedOffer c : endedOffers) {
-			save(c);
-		}
-	}
+	public void removeEndedOffer(EndedOffer ao);
 
-	public synchronized void save(EndedOffer ao) {
-		EndedOffer endedOffer = endedOfferDao.findByOfferIdAndUserName(ao.getOfferId(), ao.getUserName());
+	public void removeEndedOfferByCargoOfferAndOwner(CargoOffer co, String owner);
 
-		if (endedOffer == null) {
-			endedOfferDao.saveOrUpdate(ao);
-		}
-	}
+	public void removeEndedOffersByCargoOfferAndOwner(List<CargoOffer> offers, String owner);
 
-	public synchronized void removeEndedOffer(EndedOffer ao) {
-		endedOfferDao.removeEndedOffer(ao);
-	}
+	public List<EndedOffer> findAll();
 
-	public synchronized void removeEndedOfferByCargoOfferAndOwner(CargoOffer co, String owner) {
-		endedOfferDao.removeEndedOfferByCargoOfferAndOwner(co, owner);
-	}
+	public EndedOffer findById(long id);
 
-	public synchronized void removeEndedOffersByCargoOfferAndOwner(List<CargoOffer> offers, String owner) {
-		for (CargoOffer co : offers) {
-			this.removeEndedOfferByCargoOfferAndOwner(co, owner);
-		}
-	}
+	public EndedOffer findByOfferIdAndUserName(long offerId, String userName);
 
-	public synchronized List<EndedOffer> findAll() {
-		return endedOfferDao.findAll();
-	}
+	public List<CargoOffer> getEndedCargoOffersByOwner(String owner);
 
-	public synchronized EndedOffer findById(long id) {
-		return endedOfferDao.findById(id);
-	}
-
-	public synchronized EndedOffer findByOfferIdAndUserName(long offerId, String userName) {
-		return endedOfferDao.findByOfferIdAndUserName(offerId, userName);
-	}
-
-	public synchronized List<CargoOffer> getEndedCargoOffersByOwner(String owner) {
-		return endedOfferDao.getEndedCargoOffersByOwner(owner);
-	}
-
-	public List<EndedOffer> findEndedOfferByOwner(String owner) {
-		return this.endedOfferDao.findEndedOfferByOwner(owner);
-	}
+	public List<EndedOffer> findEndedOfferByOwner(String owner);
 
 }

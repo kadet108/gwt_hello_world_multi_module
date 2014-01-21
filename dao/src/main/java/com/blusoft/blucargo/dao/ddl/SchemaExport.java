@@ -1,10 +1,11 @@
 package com.blusoft.blucargo.dao.ddl;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import org.apache.log4j.Logger;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.jdbc.internal.FormatStyle;
 import org.hibernate.engine.jdbc.internal.Formatter;
@@ -20,12 +21,14 @@ public final class SchemaExport implements SchemaConstants {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		boolean drop = false;
 		boolean create = false;
 		String hsqlCreateOutputFilePath = null;
 		String hsqlDropOutputFilePath = null;
+		String mysqlCreateOutputFilePath = null;
+		String mysqlDropOutputFilePath = null;
 		String oracleCreateOutputFilePath = null;
 		String oracleDropOutputFilePath = null;
 		String delimiter = "";
@@ -46,6 +49,10 @@ public final class SchemaExport implements SchemaConstants {
 					oracleCreateOutputFilePath = arg.substring(ORACLE_CREATE_OUTPUT.length());
 				} else if (arg.startsWith(ORACLE_DROP_OUTPUT)) {
 					oracleDropOutputFilePath = arg.substring(ORACLE_DROP_OUTPUT.length());
+				} else if (arg.startsWith(MYSQL_CREATE_OUTPUT)) {
+					mysqlCreateOutputFilePath = arg.substring(MYSQL_CREATE_OUTPUT.length());
+				} else if (arg.startsWith(MYSQL_DROP_OUTPUT)) {
+					mysqlDropOutputFilePath = arg.substring(MYSQL_DROP_OUTPUT.length());
 				} else if (arg.startsWith(DELIMITER)) {
 					delimiter = arg.substring(DELIMITER.length());
 				}
@@ -59,13 +66,17 @@ public final class SchemaExport implements SchemaConstants {
 
 		final ApplicationContext oracleExportContext = new ClassPathXmlApplicationContext("classpath*:/META-INF/spring/blucargo-oracle-ddl-export-context.xml");
 		prepareExportedSchema(drop, create, oracleCreateOutputFilePath, oracleDropOutputFilePath, delimiter, formatter, oracleExportContext);
+
+		final ApplicationContext mysqlExportContext = new ClassPathXmlApplicationContext("classpath*:/META-INF/spring/blucargo-mysql-ddl-export-context.xml");
+		prepareExportedSchema(drop, create, mysqlCreateOutputFilePath, mysqlDropOutputFilePath, delimiter, formatter, mysqlExportContext);
+
 	}
 
 	private static void prepareExportedSchema(boolean drop, boolean create, String createOutputFilePath, String dropOutputFilePath, String delimiter,
-			final Formatter formatter, final ApplicationContext exportContext) {
+			final Formatter formatter, final ApplicationContext exportContext) throws IOException {
 
 		final LocalSessionFactoryBean sessionFactory = (LocalSessionFactoryBean) exportContext.getBean("&sessionFactory");
-		final Configuration configuration = sessionFactory.getConfiguration();
+		final org.hibernate.cfg.Configuration configuration = sessionFactory.getConfiguration();
 		final String[] createScript = configuration.generateSchemaCreationScript(Dialect.getDialect(configuration.getProperties()));
 		final String[] dropScript = configuration.generateDropSchemaScript(Dialect.getDialect(configuration.getProperties()));
 
@@ -77,9 +88,15 @@ public final class SchemaExport implements SchemaConstants {
 		}
 	}
 
-	private static void exportToFile(String outputFilePath, String delimiter, Formatter formatter, String[] script) {
+	private static void exportToFile(String outputFilePath, String delimiter, Formatter formatter, String[] script) throws IOException {
 
 		PrintWriter writer = null;
+
+		File file = new File(outputFilePath);
+		if (!file.exists()) {
+			file.getParentFile().mkdirs();
+			file.createNewFile();
+		}
 
 		try {
 

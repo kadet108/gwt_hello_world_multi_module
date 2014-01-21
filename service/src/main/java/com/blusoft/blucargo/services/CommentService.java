@@ -2,55 +2,25 @@ package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.blusoft.blucargo.dao.CommentDao;
 import com.blusoft.blucargo.model.Comment;
 import com.blusoft.blucargo.model.CommentAndOffer;
 
-@Service
-@Transactional
-public class CommentService {
+public interface CommentService {
 
-	private final CommentDao commentDao;
+	public void save(Comment comment);
 
-	@Autowired
-	public CommentService(CommentDao commentDao) {
-		this.commentDao = commentDao;
-	}
+	public void remove(Comment comment);
 
-	public synchronized void save(Comment comment) {
-		this.commentDao.saveOrUpdate(comment);
-	}
+	public List<Comment> findAll();
 
-	public synchronized void remove(Comment comment) {
-		this.commentDao.delete(comment);
-	}
+	public Comment findById(long id);
 
-	public synchronized List<Comment> findAll() {
-		return commentDao.findAll();
-	}
+	public List<Comment> findCommentsByOfferId(Long id);
 
-	public synchronized Comment findById(long id) {
-		return commentDao.findById(id);
-	}
+	public List<Comment> findCommentsByAuthor(String author);
 
-	public List<Comment> findCommentsByOfferId(Long id) {
-		return commentDao.findCommentsByOfferId(id);
-	}
+	public List<CommentAndOffer> findAllCommentsForUser(String user);
 
-	public List<Comment> findCommentsByAuthor(String author) {
-		return commentDao.findCommentsByAuthor(author);
-	}
-
-	public List<CommentAndOffer> findAllCommentsForUser(String user) {
-		return commentDao.findAllCommentsForUser(user);
-	}
-
-	public List<Comment> findAllCommentsForUserSimple(String user) {
-		return commentDao.findAllCommentsForUserSimple(user);
-	}
+	public List<Comment> findAllCommentsForUserSimple(String user);
 
 }

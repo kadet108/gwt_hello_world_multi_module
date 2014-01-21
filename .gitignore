@@ -5,4 +5,5 @@ dep.txt
 *~
 target
 .classpath
+.gwt
 /target/*

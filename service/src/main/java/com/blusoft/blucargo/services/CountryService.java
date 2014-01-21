@@ -2,44 +2,18 @@ package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.blusoft.blucargo.dao.CountryDao;
 import com.blusoft.blucargo.model.Country;
 
-@Service
-@Transactional
-public class CountryService {
+public interface CountryService {
 
-	private final CountryDao countryDao;
+	public void saveCountries(List<Country> countries);
 
-	@Autowired
-	public CountryService(CountryDao countryDao) {
-		this.countryDao = countryDao;
-	}
+	public void saveCountry(Country c);
 
-	public synchronized void saveCountries(List<Country> countries) {
-		for (Country c : countries) {
-			saveCountry(c);
-		}
-	}
+	public List<Country> findAll();
 
-	public synchronized void saveCountry(Country c) {
-		countryDao.saveOrUpdate(c);
-	}
+	public List<Country> findAllCountry();
 
-	public synchronized List<Country> findAll() {
-		return countryDao.findAll();
-	}
-
-	public synchronized List<Country> findAllCountry() {
-		return countryDao.findAllCountry();
-	}
-
-	public synchronized Country findById(long id) {
-		return countryDao.findById(id);
-	}
+	public Country findById(long id);
 
 }

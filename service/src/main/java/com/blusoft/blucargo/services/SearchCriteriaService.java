@@ -2,60 +2,26 @@ package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.blusoft.blucargo.dao.SearchCriteriaDao;
 import com.blusoft.blucargo.model.SearchCriteria;
 
-@Service
-@Transactional
-public class SearchCriteriaService {
+public interface SearchCriteriaService {
 
-	private final SearchCriteriaDao searchCriteriaDao;
+	public void save(List<SearchCriteria> searchCriterias);
 
-	@Autowired
-	public SearchCriteriaService(SearchCriteriaDao searchCriteriaDao) {
-		this.searchCriteriaDao = searchCriteriaDao;
-	}
+	public void save(SearchCriteria c);
 
-	public synchronized void save(List<SearchCriteria> searchCriterias) {
-		for (SearchCriteria s : searchCriterias) {
-			save(s);
-		}
-	}
+	public List<SearchCriteria> findAll();
 
-	public synchronized void save(SearchCriteria c) {
-		searchCriteriaDao.saveOrUpdate(c);
-	}
+	public SearchCriteria findById(long id);
 
-	public synchronized List<SearchCriteria> findAll() {
-		return searchCriteriaDao.findAll();
-	}
+	public List<SearchCriteria> findByUserName(String string);
 
-	public synchronized SearchCriteria findById(long id) {
-		return searchCriteriaDao.findById(id);
-	}
+	public void removeById(Long id);
 
-	public List<SearchCriteria> findByUserName(String string) {
-		return searchCriteriaDao.findByUserName(string);
-	}
+	public List<SearchCriteria> findByUserNameAndCriteriaName(String userName, String name);
 
-	public void removeById(Long id) {
-		searchCriteriaDao.removeById(id);
-	}
+	public void deleteByUserNameAndCriteriaName(String userName, String name);
 
-	public List<SearchCriteria> findByUserNameAndCriteriaName(String userName, String name) {
-		return searchCriteriaDao.findByUserNameAndCriteriaName(userName, name);
-	}
-
-	public void deleteByUserNameAndCriteriaName(String userName, String name) {
-		searchCriteriaDao.deleteByUserNameAndCriteriaName(userName, name);
-	}
-
-	public void deleteByUser(String string) {
-		searchCriteriaDao.deleteByUser(string);
-	}
+	public void deleteByUser(String string);
 
 }

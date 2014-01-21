@@ -2,63 +2,26 @@ package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.blusoft.blucargo.dao.CargoOfferDao;
 import com.blusoft.blucargo.model.CargoOffer;
 
-@Transactional
-@Service
-public class CargoOfferService {
+public interface CargoOfferService {
 
-	private final CargoOfferDao cargoOfferDao;
+	public void save(List<CargoOffer> offerList);
 
-	@Autowired
-	public CargoOfferService(CargoOfferDao dao) {
-		cargoOfferDao = dao;
-	}
+	public CargoOfferDao getCargoOfferDao();
 
-	public synchronized void save(List<CargoOffer> offerList) {
-		for (CargoOffer co : offerList) {
-			cargoOfferDao.saveOrUpdate(co);
-		}
-	}
+	public void save(CargoOffer co);
 
-	public CargoOfferDao getCargoOfferDao() {
-		return cargoOfferDao;
-	}
+	public void removeCargoOffers(List<CargoOffer> cargoOffers);
 
-	public synchronized void save(CargoOffer co) {
-		cargoOfferDao.saveOrUpdate(co);
-	}
+	public void removeCargoOffer(CargoOffer cargoOffer);
 
-	public synchronized void removeCargoOffers(List<CargoOffer> cargoOffers) {
-		for (CargoOffer co : cargoOffers) {
-			this.removeCargoOffer(co);
-		}
-	}
+	public List<CargoOffer> findAll();
 
-	public synchronized void removeCargoOffer(CargoOffer cargoOffer) {
-		cargoOfferDao.delete(cargoOffer);
+	public List<CargoOffer> findAllThatAreNotAcceptedNorDeleted();
 
-	}
+	public CargoOffer findById(long id);
 
-	public synchronized List<CargoOffer> findAll() {
-		return cargoOfferDao.findAll();
-	}
-
-	public synchronized List<CargoOffer> findAllThatAreNotAcceptedNorDeleted() {
-		return cargoOfferDao.findAllThatAreNotAcceptedNorEnded();
-	}
-
-	public synchronized CargoOffer findById(long id) {
-		return cargoOfferDao.findById(id);
-	}
-
-	public synchronized CargoOffer findOfferById(long id) {
-		return cargoOfferDao.findOfferById(id);
-	}
-
+	public CargoOffer findOfferById(long id);
 }

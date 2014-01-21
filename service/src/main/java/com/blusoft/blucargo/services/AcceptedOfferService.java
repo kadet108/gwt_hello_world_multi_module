@@ -2,67 +2,29 @@ package com.blusoft.blucargo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.blusoft.blucargo.dao.AcceptedOfferDao;
 import com.blusoft.blucargo.model.AcceptedOffer;
 import com.blusoft.blucargo.model.CargoOffer;
 
-@Transactional
-public class AcceptedOfferService {
+public interface AcceptedOfferService {
 
-	private final AcceptedOfferDao acceptedOfferDao;
+	public void saveAcceptedOffers(List<AcceptedOffer> acceptedOffers);
 
-	@Autowired
-	public AcceptedOfferService(AcceptedOfferDao acceptedOfferDaoParam) {
-		acceptedOfferDao = acceptedOfferDaoParam;
-	}
+	public void save(AcceptedOffer ao);
 
-	public synchronized void saveAcceptedOffers(List<AcceptedOffer> acceptedOffers) {
-		for (AcceptedOffer c : acceptedOffers) {
-			save(c);
-		}
-	}
+	public void removeAcceptedOffer(AcceptedOffer ao);
 
-	public synchronized void save(AcceptedOffer ao) {
-		acceptedOfferDao.saveOrUpdate(ao);
-	}
+	public void removeAcceptedOffers(List<AcceptedOffer> list);
 
-	public synchronized void removeAcceptedOffer(AcceptedOffer ao) {
-		acceptedOfferDao.delete(ao);
-	}
+	public void removeAcceptedOfferByCargoOfferAndOwner(CargoOffer co, String owner);
 
-	public synchronized void removeAcceptedOffers(List<AcceptedOffer> list) {
-		for (AcceptedOffer offer : list) {
-			acceptedOfferDao.delete(offer);
-		}
-	}
+	public void removeAcceptedOffersByCargoOfferAndOwner(List<CargoOffer> offers, String owner);
 
-	public synchronized void removeAcceptedOfferByCargoOfferAndOwner(CargoOffer co, String owner) {
-		acceptedOfferDao.removeAcceptedOfferByCargoOfferAndOwner(co, owner);
-	}
+	public List<AcceptedOffer> findAll();
 
-	public synchronized void removeAcceptedOffersByCargoOfferAndOwner(List<CargoOffer> offers, String owner) {
-		for (CargoOffer co : offers) {
-			this.removeAcceptedOfferByCargoOfferAndOwner(co, owner);
-		}
-	}
+	public AcceptedOffer findById(long id);
 
-	public synchronized List<AcceptedOffer> findAll() {
-		return acceptedOfferDao.findAll();
-	}
+	public List<CargoOffer> getAcceptedCargoOffersByOwner(String owner);
 
-	public synchronized AcceptedOffer findById(long id) {
-		return acceptedOfferDao.findById(id);
-	}
-
-	public synchronized List<CargoOffer> getAcceptedCargoOffersByOwner(String owner) {
-		return acceptedOfferDao.getAcceptedCargoOffersByOwner(owner);
-	}
-
-	public synchronized AcceptedOffer getAcceptedOfferByCargoOfferIdAndUserName(Long cargoOfferId, String userName) {
-		return acceptedOfferDao.getAcceptedOfferByCargoOfferIdAndUserName(cargoOfferId, userName);
-	}
+	public AcceptedOffer getAcceptedOfferByCargoOfferIdAndUserName(Long cargoOfferId, String userName);
 
 }

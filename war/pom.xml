@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.codehaus.mojo.gwt.it</groupId>
-		<artifactId>reactor</artifactId>
+		<groupId>com.blusoft</groupId>
+		<artifactId>blucargo</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
@@ -16,6 +16,19 @@
 	</properties>
 
 	<dependencies>
+
+	    <dependency>
+	        <groupId>com.blusoft.blucargo</groupId>
+			<artifactId>service</artifactId>
+			<version>${project.parent.version}</version>
+	    </dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
@@ -54,7 +67,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<!-- runTarget>org.codehaus.mojo.gwt.test.Hello/Hello.html</runTarget-->
+					<!-- runTarget>org.codehaus.mojo.gwt.test.Hello/Hello.html</runTarget -->
 					<runTarget>blucargo.html</runTarget>
 					<draftCompile>true</draftCompile>
 					<optimizationLevel>1</optimizationLevel>
@@ -73,8 +86,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<!--  webappDirectory>${webappDirectory}</webappDirectory-->
-					<!--  warSourceDirectory>war</warSourceDirectory-->
+					<!-- webappDirectory>${webappDirectory}</webappDirectory -->
+					<!-- warSourceDirectory>war</warSourceDirectory -->
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>

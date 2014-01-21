@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.blucargo</groupId>
+	<groupId>com.blusoft.blucargo</groupId>
 	<artifactId>service</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
@@ -17,7 +17,7 @@
 	<properties>
 	    <hsqldb.version>2.2.8</hsqldb.version>
 	</properties>
-	
+
 	<build>
 		<plugins>
 
@@ -28,7 +28,7 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 
 		<pluginManagement>
@@ -106,17 +106,17 @@
 				<filtering>false</filtering>
 			</resource>
 		</resources>
-		
+
 	</build>
 
 	<dependencies>
-	    
+
 	    <dependency>
 	        <groupId>com.blusoft.blucargo</groupId>
-			<artifactId>dao</artifactId>	        
+			<artifactId>dao</artifactId>
 			<version>${project.version}</version>
 	    </dependency>
-	    
+
 	    <!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -138,7 +138,7 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-			    
+
 	</dependencies>
 
 </project>

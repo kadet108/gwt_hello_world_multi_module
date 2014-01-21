@@ -5,19 +5,30 @@
 
 <web-app>
 
-  <servlet>
-    <servlet-name>testService</servlet-name>
-    <servlet-class>com.blusoft.blucargo.gwt.server.TestServiceImpl</servlet-class>
-  </servlet>
+	<context-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>
+          classpath*:META-INF/spring/blucargo-dao-context.xml,
+          classpath*:META-INF/spring/blucargo-service-context.xml</param-value>
+  	</context-param>
 
-  <servlet-mapping>
-    <servlet-name>testService</servlet-name>
-    <url-pattern>/hello/testService</url-pattern>
-  </servlet-mapping>
+  	<listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  	</listener>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>blucargo.html</welcome-file>
-  </welcome-file-list>
+	<servlet>
+		<servlet-name>testService</servlet-name>
+		<servlet-class>com.blusoft.blucargo.gwt.server.TestServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>testService</servlet-name>
+		<url-pattern>/hello/testService</url-pattern>
+	</servlet-mapping>
+
+ 	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>blucargo.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>
